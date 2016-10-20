@@ -158,24 +158,23 @@
 
 #define _dbgdump	pr_info
 
-#if defined (_dbgdump) && defined (_MODULE_DEFINE_)
+/* #if defined (_dbgdump) && defined (_MODULE_DEFINE_) */
 	#undef RT_TRACE
 	#define RT_TRACE(_Comp, _Level, Fmt)				\
 	do {								\
-		if (_Level <= GlobalDebugLevel) {			\
+		if (1) {						\
 			_dbgdump("%s [0x%08x,%d]", RTL871X_MODULE_NAME,	\
 				 (unsigned int)_Comp, _Level);		\
 			_dbgdump Fmt;					\
 		}							\
 	} while (0)
-#endif
+/* #endif */
 
-#if defined (_dbgdump)
+/* #if defined (_dbgdump) */
 	#undef RT_PRINT_DATA
 	#define RT_PRINT_DATA(_Comp, _Level, _TitleString, _HexData,	\
 			      _HexDataLen)				\
-		if (((_Comp) & GlobalDebugComponents) &&		\
-		    (_Level <= GlobalDebugLevel)) {			\
+		if (1) {						\
 			int __i;					\
 			u8 *ptr = (u8 *)_HexData;			\
 			_dbgdump("Rtl871x: ");				\
@@ -189,7 +188,7 @@
 				}					\
 				_dbgdump("\n");				\
 			}
-#endif
+/* #endif */
 
 #undef	_dbgdump
 
@@ -198,9 +197,9 @@
 extern u32 GlobalDebugLevel;
 #define LOG_LEVEL(level, ...)\
 	do {\
-		if (level <= GlobalDebugLevel) {			\
+		/* if (level <= GlobalDebugLevel) {			\ */
 			pr_debug(__VA_ARGS__);				\
-		}							\
+		/* }							\ */
 	} while (0)
 
 #define DBG_8192D(...) LOG_LEVEL(_drv_debug_ ,  __VA_ARGS__)
